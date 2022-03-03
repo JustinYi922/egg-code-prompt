@@ -1,0 +1,35 @@
+{
+  "Controller类的方法注释代码片段": {
+    "prefix": "doc",
+    "body": ["/**", " * ${1}", " * @request${2}", " * @response${3}", " */"],
+    "description": "controller类中方法已经存在，可以使用该片段快速注释代码片段"
+  },
+  "Controller方法+注释快捷方法片段": {
+    "prefix": "pub",
+    "body": [
+      "/**",
+      " * ${1}",
+      " * @request${2}",
+      " * @response${3}",
+      " */",
+      "public ${4}() {",
+      " this.ctx.response.success(${6});",
+      "}"
+    ],
+    "description": "controller类中方法不存在，可以使用该片段快速生成注释和方法格式"
+  },
+  "Controller异步方法+注释快捷方法片段": {
+    "prefix": "puba",
+    "body": [
+      "/**",
+      " * ${1}",
+      " * @request${2}",
+      " * @response${3}",
+      " */",
+      "public ${4}() {",
+      " this.ctx.response.success(${6});",
+      "}"
+    ],
+    "description": "controller类中方法不存在，可以使用该片段快速生成注释和方法格式"
+  }
+}
