@@ -36,29 +36,15 @@ function provideCompletionItems(document, position, token, context) {
       return;
     }
     if (!lineText.includes("/")) {
+      let customFiles = [];
       const dFileName = fileName
         .replace("app/controller", "typings/custom")
         .replace(".ts", ".d.ts");
       if (dFileName) {
-        const program = ts.createProgram([dFileName], options);
-        const sourceFile = program.getSourceFile(dFileName);
-        ts.forEachChild(sourceFile, (moduleDeclaration: ts.Node) => {
-          if (ts.isModuleDeclaration(moduleDeclaration)) {
-            ts.forEachChild(moduleDeclaration, (moduleBlock: ts.Node) => {
-              if (ts.isModuleBlock(moduleBlock)) {
-                ts.forEachChild(
-                  moduleBlock,
-                  (interfaceDeclaration: ts.Node) => {
-                    if (ts.isInterfaceDeclaration(interfaceDeclaration)) {
-                      files.add(interfaceDeclaration.name.escapedText);
-                    }
-                  }
-                );
-              }
-            });
-          }
-        });
+        customFiles = getInterface(dFileName);
       }
+      const commonDFile = workspaceRoot + "/typings/common.d.ts";
+      files = new Set([...files, ...getInterface(commonDFile), ...customFiles]);
     }
     if (/\/$/g.test(lineText)) {
       //response后面中台bean提示
@@ -85,6 +71,30 @@ function provideCompletionItems(document, position, token, context) {
   return null;
 }
 
+function getInterface(dFileName: string) {
+  let files = [];
+  
+  if (!existsSync(dFileName)) {
+    return files;
+  }
+
+  const program = ts.createProgram([dFileName], options);
+  const sourceFile = program.getSourceFile(dFileName);
+  ts.forEachChild(sourceFile, (moduleDeclaration: ts.Node) => {
+    if (ts.isModuleDeclaration(moduleDeclaration)) {
+      ts.forEachChild(moduleDeclaration, (moduleBlock: ts.Node) => {
+        if (ts.isModuleBlock(moduleBlock)) {
+          ts.forEachChild(moduleBlock, (interfaceDeclaration: ts.Node) => {
+            if (ts.isInterfaceDeclaration(interfaceDeclaration)) {
+              files.push(interfaceDeclaration.name.escapedText);
+            }
+          });
+        }
+      });
+    }
+  });
+  return files;
+}
 /**
  * 提供path|query|request|response单词代码提示
  * @param document

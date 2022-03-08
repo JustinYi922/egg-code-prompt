@@ -1,8 +1,8 @@
 {
   "name": "egg-code-prompt",
   "displayName": "@qianmi/egg-code-prompt",
-  "description": "egg项目代码注释快速生成插件",
-  "version": "0.1.1",
+  "description": "基于typescript的egg项目代码为配合方便快捷生成swagger而开发的vscode插件",
+  "version": "0.1.3",
   "engines": {
     "vscode": "^1.64.0"
   },
