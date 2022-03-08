@@ -1,23 +1,25 @@
 # egg-code-prompt
-egg项目代码提示vscode插件
+基于typescript的egg项目代码为配合方便快捷生成swagger注释而开发的vscode插件
 
 ## 背景
 
 BFF的开发童鞋给前端童鞋提供接口文档是主要的工作内容之一。在java的项目中，通过swagger的插件配合Yapi可以快速生成。但node项目一直没有，苦了node的BFFer了。所以开发此插件目的
 * 配合ts-egg-swagger根据相应的规范快速生成接口文档
 * 支持对关键单词的代码自动补全
-* 支持对定义的form悬停提示其内容
-* 支持对关键词后面的"类"跳转到定义
+* 支持对定义的interface悬停提示其内容
+* 支持对关键词后面的"interface"跳转到定义
 
 ## 安装插件
 vscode 插件中搜索egg-code-prompt
 
 ## 使用说明
-请在使用TypeScript的Egg主目录中运行
+请在使用TypeScript的Egg项目根主目录中运行
 ### egg项目中，我们约定
 
 1. app/controller ------controller目录
-2. typings/custom -------自定义ts的声明文件目录（注意：d.ts文件名和controller中的文件名一致）
+2. typings/custom -------
+   1. 自定义ts的声明文件目录（注意：d.ts文件名和controller中的文件名一致）
+   2. common.d.ts为公共使用的声明文件
 3. node_modules 下面有ts声明文件的依赖包,比如@qianmi/......../**.d.ts
 
 ### 在插件中我们提前生成了代码片段
